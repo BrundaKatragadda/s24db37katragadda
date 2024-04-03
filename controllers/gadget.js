@@ -1,8 +1,18 @@
 var gadget = require('../models/gadget');
-// List of all gadget
-exports.gadget_list = function(req, res) {
-res.send('NOT IMPLEMENTED: gadget list');
-};
+// List of all gadget\
+exports.gadget_list = async function(req, res) {
+    try{
+    thegadget = await gadget.find();
+    res.send(thegadget);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
+// exports.gadget_list = function(req, res) {
+// res.send('NOT IMPLEMENTED: gadget list');
+// };
 // for a specific gadget.
 exports.gadget_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: gadget detail: ' + req.params.id);
@@ -20,13 +30,3 @@ exports.gadget_view_all_Page = function(req, res) {
 res.send('NOT IMPLEMENTED: gadget update PUT' + req.params.id);
 };
 // List of all gadgets
-exports.gadget_list = async function(req, res) {
-    try{
-    thegadget = await gadget.find();
-    res.send(thegadget);
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
-    };
