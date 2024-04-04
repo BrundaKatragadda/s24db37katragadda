@@ -8,13 +8,13 @@ var gadget_controller = require('../controllers/gadget');
 router.get('/', api_controller.api);
 /// gadget ROUTES ///
 // POST request for creating a gadget.
-router.post('/gadget', gadget_controller.gadget_create_post);
+router.post('/gadgets', gadget_controller.gadget_create_post);
 // DELETE request to delete gadget.
-router.delete('/gadget/:id', gadget_controller.gadget_delete);
+router.delete('/gadgets/:id', gadget_controller.gadget_delete);
 // PUT request to update gadget.
-router.put('/gadget/:id', gadget_controller.gadget_update_put);
+router.put('/gadgets/:id', gadget_controller.gadget_update_put);
 // GET request for one gadget.
-router.get('/gadget/:id', gadget_controller.gadget_detail);
+router.get('/gadgets/:id', gadget_controller.gadget_detail);
 // GET request for list of all gadget items.
-router.get('/gadget', gadget_controller.gadget_list);
+router.get('/gadgets', gadget_controller.gadget_list);
 module.exports = router;
