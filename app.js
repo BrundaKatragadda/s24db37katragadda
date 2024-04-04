@@ -26,18 +26,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/gadgets', gRouter);
+app.use('/gadget', gRouter);
 app.use('/grid', gridRouter);
 app.use('/randomitem', rRouter);
 app.use('/gad', gadget);
-app.use('/resource',resourceRouter);
+app.use('/resource', resourceRouter);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -54,39 +54,49 @@ mongoose.connect(connectionString);
 var db = mongoose.connection;
 //Bind connection to error event
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
+db.once("open", function () {
+  console.log("Connection to DB succeeded")
+});
 
 // We can seed the collection if needed on server start
-async function recreateDB(){
-// Delete everything
-await gadget.deleteMany();
-let instance1 = new
-gadget({gadget_type:"mouse", gadget_for:'laptop',
-cost:15.4});
-instance1.save().then(doc=>{
-console.log("First object saved")}
-).catch(err=>{
-console.error(err)
-});
-let instance2 = new
-gadget({gadget_type:"pods", gadget_for:'mobile',
-cost:15});
-instance2.save().then(doc=>{
-console.log("First object saved")}
-).catch(err=>{
-console.error(err)
-});
-let instance3 = new
-gadget({gadget_type:"coolingfan", gadget_for:'laptop',
-cost:154});
-instance3.save().then(doc=>{
-console.log("First object saved")}
-).catch(err=>{
-console.error(err)
-});
+async function recreateDB() {
+  // Delete everything
+  await gadget.deleteMany();
+  let instance1 = new
+    gadget({
+      gadget_type: "mouse", gadget_for: 'laptop',
+      cost: 15.4
+    });
+  instance1.save().then(doc => {
+    console.log("First object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
+  let instance2 = new
+    gadget({
+      gadget_type: "pods", gadget_for: 'mobile',
+      cost: 15
+    });
+  instance2.save().then(doc => {
+    console.log("First object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
+  let instance3 = new
+    gadget({
+      gadget_type: "coolingfan", gadget_for: 'laptop',
+      cost: 154
+    });
+  instance3.save().then(doc => {
+    console.log("First object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
 }
 let reseed = true;
-if (reseed) {recreateDB();}
+if (reseed) { recreateDB(); }
 
 module.exports = app;

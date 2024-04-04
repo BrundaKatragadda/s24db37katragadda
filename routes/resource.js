@@ -18,12 +18,3 @@ router.get('/gadget/:id', gadget_controller.gadget_detail);
 // GET request for list of all gadget items.
 router.get('/gadget', gadget_controller.gadget_list);
 module.exports = router;
-// API for our resources
-exports.api = function(req, res) {
-res.write('[');
-res.write('{"resource":"gadget", ');
-res.write(' "verbs":["GET","PUT", "DELETE"] ');
-res.write('}');
-res.write(']')
-res.send();
-};
