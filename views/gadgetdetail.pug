@@ -1,0 +1,23 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to detail 
+  else
+    - let gadgetid = toShow._id
+    - let gadget_type = toShow.gadget_type
+    - let gadgetcost = toShow.cost
+    - let gadget_for = toShow.gadget_for
+    div
+        div.row
+        div(class='gadgetAttr mr-3') Gadget ID is:
+        div #{gadgetid}
+        div.row
+        div(class='gadgetAttr mr-3') Gadget Type is:
+        div #{gadget_type}
+        div.row
+        div(class='gadgetAttr mr-3') Gadget for  is:
+        div #{gadget_for}
+        div.row
+        div(class='gadgetAttr mr-3') Gadget Cost is:
+        div #{gadgetcost}

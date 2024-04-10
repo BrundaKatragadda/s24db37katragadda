@@ -58,9 +58,18 @@ exports.gadget_create_post = async function (req, res) {
     }
 };
 // Handle gadget delete from on DELETE.
-exports.gadget_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: gadget delete DELETE ' + req.params.id);
-};
+// Handle Costume delete on DELETE.
+exports.gadget_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await gadget.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
 // Handle gadget update form on PUT.
 //Handle Costume update form on PUT.
 exports.gadget_update_put = async function (req, res) {
@@ -82,3 +91,55 @@ ${JSON.stringify(req.body)}`)
 failed`);
     }
 };
+// Handle a show one view with id specified by query
+exports.gadget_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await gadget.findById( req.query.id)
+res.render('gadgetdetail',
+{ title: 'gadget Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.gadget_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('gadgetcreate', { title: 'gadget Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    // Handle building the view for updating a costume.
+    // query provides the id
+    exports.gadget_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await gadget.findById(req.query.id)
+    res.render('gadgetupdate', { title: 'gadget Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+// Handle a delete one view with id from query
+exports.gadget_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await gadget.findById(req.query.id)
+    res.render('gadgetdelete', { title: 'gadget Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };

@@ -1,0 +1,50 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let gadgetid = toShow._id
+    - let gadget_type = toShow.gadget_type
+    - let gadgetcost = toShow.cost
+    - let gadget_for = toShow.gadget_for
+    - let actionid = "/resource/gadgets/" + gadgetid
+    script.
+      let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='gadgetAttr mr-3') gadget ID is:
+        div #{gadgetid}
+      div.row
+        div(class='gadgetAttr mr-3') gadget Type is:
+        div #{gadget_type}
+      div.row
+        div(class='gadgetAttr mr-3') gadget for is:
+        div #{gadget_for}
+      div.row
+        div(class='gadgetAttr mr-3') gadget Cost is:
+        div #{gadgetcost}
+      button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the costume collection
+        window.location.href='/gadgets'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeeded")
+          window.location.href='/gadgets'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }
