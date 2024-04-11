@@ -3,16 +3,16 @@ block content
   h1= title
   
   form(id='gadgetForm', action="/resource/gadgets", method="POST")
-    div.form-group
+    div.form-group(style="color: black; background-color: lightpink;")
       label.gadgetAttr(for='gadget_type') Gadget Type
       input#gadget_type(type='text', name='gadget_type')
-    div.form-group
+    div.form-group(style="color: black; background-color: lightpink;")
       label.gadgetAttr(for='size') Gadget for
       input#size(type='text', name='size')
-    div.form-group
+    div.form-group(style="color: black; background-color: lightpink;")
       label.gadgetAttr(for='cost') Gadget Cost
       input#cost(type='number', name='cost')
-    input(type="submit")
+    input(type="submit")(style="color: red; background-color: yellow;")
   script.
     document.forms['gadgetForm'].addEventListener('submit', (event) => {
       event.preventDefault();
