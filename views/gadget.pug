@@ -1,15 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  - let items = results;
-  div(class="container-fluid")
-    div(class="row m-1")
-      each item in items
-        - let destination = `dispatch(\"/gadget/update?id=${item._id}\")`
-        div(class="row-sm-2", class="m-1") Item #{item.gadget_type}(#{item.gadget_for}) is #{item.cost}
-        button.btn( class="btn-primary ml-1", onclick= destination) Update
-  script.
-    function dispatch(path){
-      window.location.href=path
-      }
+    h1= title
+    p Welcome to #{title}
+
+    - let create = `dispatch(\"/gadget/create\")`
+    button.btn(class="btn-primary ml-1", onclick= create) Create
+
+    - let item = results
+
+    div(class="container-fluid")
+        div(class="row m-1")
+            each item, index in results
+                - let destination = `dispatch(\"/gadget/update?id=${item._id}\")`
+                - let detail = `dispatch(\"/gadget/detail?id=${item._id}\")`
+                - let remove = `dispatch(\"/gadget/delete?id=${item._id}\")`
+                div(class="col-sm-2")
+                    ul
+                        li #{item.gadget_type}
+                        li #{item.gadget_for}
+                        li #{item.cost}
+
+                    button.btn(class="btn-success ml-1", onclick= destination) Update
+                    button.btn(class="btn-danger ml-1", onclick= detail) Detail
+                    button.btn(class="btn-success ml-1", onclick= remove) Delete
+
+    script.
+        function dispatch(path){
+            window.location.href=path
+        }

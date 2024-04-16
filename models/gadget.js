@@ -1,8 +1,15 @@
 const mongoose = require("mongoose")
 const gadgetSchema = mongoose.Schema({
-gadget_type: String,
-gadget_for: String,
-cost: Number
+    gadget_type: {
+        type:String,
+        minlength:1,
+        maxlength:15,
+    },
+    gadget_for: String,
+    cost: {
+        type:Number,
+        min:1,
+        max:200,
+    }
 })
-module.exports = mongoose.model("gadget",
-gadgetSchema)
+module.exports = mongoose.model("gadget",gadgetSchema)
